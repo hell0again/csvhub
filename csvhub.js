@@ -17,8 +17,13 @@ for (var f = 0; f < files.length; f++) {
     for (var l = 0; l < lines.length; l++) {
 
       // Parse data from line
-      line = lines[l].textContent;
-      data = $.csv.toArray(line.substr(1).trim());
+      line = lines[l].textContent.trim();
+
+      var accept_re = /^\s*[^@]/;
+      if (! line.match(accept_re)) {
+        continue;
+      }
+      data = $.csv.toArray(line.substr(1));
 
       // Line has been added
       if (line.indexOf("+") == 0) {
